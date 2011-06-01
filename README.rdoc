@@ -17,6 +17,8 @@ Migrate database.
 
 Run Redmine and have a fun!
 
+Note: run Redmine must be in production mode.
+
 == License
 
 Released under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2 (GPL)].
