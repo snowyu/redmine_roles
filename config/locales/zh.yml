@@ -1,0 +1,11 @@
+# Chinese strings go here for Rails i18n
+zh:
+  project_roles: 项目角色
+  project_role: 项目角色
+  project_module_project_role: 角色与权限
+  project_workflows: 工作流
+  project_workflow: 工作流
+
+  permission_project_role_setting: 管理角色
+  permission_project_workflow_setting: 管理工作流
+  label_global: 全局

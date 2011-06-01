@@ -1,0 +1,7 @@
+<div class="contextual">
+<%= link_to l(:button_edit), {:controller => 'project_workflow_settings', :action => "edit", :id => @project}, :class => 'icon icon-edit' %>
+<%= link_to l(:button_copy), {:controller => 'project_workflow_settings', :action => "copy", :id => @project}, :class => 'icon icon-copy' %>
+<%
+#= link_to l(:field_summary), {:controller => 'project_workflow_settings', :action => "index", :id => @project}, :class => 'icon icon-summary'
+%>
+</div>

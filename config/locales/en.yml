@@ -1,0 +1,11 @@
+# English strings go here for Rails i18n
+en:
+  project_roles: Project roles
+  project_role: Project role
+  project_module_project_role: Project Role
+  project_workflows: Project workflows
+  project_workflow: Project workflow
+
+  permission_project_role_setting: Manage roles
+  permission_project_workflow_setting: Manage workflows
+  label_global: global

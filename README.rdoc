@@ -1,0 +1,36 @@
+= Redmine Project Roles Plugin
+
+A redmine plugin allow the project manager can manage their project roles.
+
+Requirement: Redmine 1.1
+
+== Installation
+
+Download the sources and put them to your vendor/plugins folder.
+
+    $ cd {REDMINE_ROOT}
+    $ git clone git://github.com/snowyu/redmine_roles.git vendor/plugins/redmine_roles
+
+Migrate database.
+
+    $ rake db:migrate:plugins
+
+Run Redmine and have a fun!
+
+== License
+
+Released under the [http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU General Public License v2 (GPL)].
+
+== Development 
+
+modified redmine views in the plugin:
+
+  projects/settings/_members.rhtml Project->Settings->Members
+  roles/                           Administration->Roles 
+  settings/                        Administration->Settings
+  users/                           Users
+
+== todo 
+
+* manage the trackers 
+* modified the project workflow settings page to add new features in redmine 1.1  

@@ -1,0 +1,41 @@
+<%#Todo: not finished yet.%>
+<div class="contextual">
+<%= link_to l(:button_edit), {:action => 'edit'}, :class => 'icon icon-edit' %>
+<%= link_to l(:button_copy), {:action => 'copy'}, :class => 'icon icon-copy' %>
+<%= link_to l(:field_summary), {:action => 'index'}, :class => 'icon icon-summary' %>
+</div>
+
+<h2><%=l(:label_workflow)%></h2>
+
+<%
+@workflow_counts = Workflow.count_by_tracker_and_role
+if @workflow_counts.empty? %>
+end
+<p class="nodata"><%= l(:label_no_data) %></p>
+<% else %>
+<table class="list">
+<thead>
+    <tr>
+    <th></th>
+    <% @workflow_counts.first.last.each do |role, count| %>
+    <th>
+        <%= content_tag(role.builtin? ? 'em' : 'span', h(role.name)) %>
+    </th>
+    
+    <% end %>
+    </tr>
+</thead>
+<tbody>
+<% @workflow_counts.each do |tracker, roles| -%>
+<tr class="<%= cycle('odd', 'even') %>">
+  <td><%= h tracker %></td>
+  <% roles.each do |role, count| -%>
+    <td align="center">
+      <%= link_to((count > 1 ? count : image_tag('false.png')), {:action => 'edit', :role_id => role, :tracker_id => tracker}, :title => l(:button_edit)) %>
+    </td>
+  <% end -%>
+</tr>
+<% end -%>
+</tbody>
+</table>
+<% end %>
