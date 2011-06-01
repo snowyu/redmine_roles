@@ -2,7 +2,7 @@
 
 A redmine plugin allow the project manager can manage their project roles.
 
-Requirement: Redmine latest trunk(supports the ISSUES_VISIBILITY_OPTIONS)
+Requirement: Redmine 1.2 latest trunk(supports the ISSUES_VISIBILITY_OPTIONS)
 
 == Installation
 

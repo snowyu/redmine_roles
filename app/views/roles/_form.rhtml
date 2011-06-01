@@ -5,7 +5,9 @@
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.check_box :assignable %></p>
 <% end %>
-<p><%= f.select :issues_visibility, Role::ISSUES_VISIBILITY_OPTIONS.collect {|v| [l(v.last), v.first]} %></p>
+<% if defined?(Role::ISSUES_VISIBILITY_OPTIONS) %>
+  <p><%= f.select :issues_visibility, Role::ISSUES_VISIBILITY_OPTIONS.collect {|v| [l(v.last), v.first]} %></p>
+<% end %>
 <% if @role.new_record? && @roles.any? %>
 <p><label><%= l(:label_copy_workflow_from) %></label>
 <%= select_tag(:copy_workflow_from, content_tag("option") + options_from_collection_for_select(@roles, :id, :name)) %></p>
