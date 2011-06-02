@@ -15,22 +15,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class ProjectRoleSettingsController < ApplicationController
+class ProjectRoleSettingsController < RolesController
  
   unloadable
   layout 'base'
  
   before_filter :find_project, :authorize
+  before_filter :appy_role_project, :only => [:new]
 
   verify :method => :post, :only => [ :destroy, :move ],
          :redirect_to => { :action => :index }
 
-  def index
-    @role_pages, @roles = paginate :roles, :per_page => 25, :order => 'builtin, position'
-    render :action => "index", :layout => false if request.xhr?
+  def appy_role_project
+    params[:role] = {:permissions => Role.non_member.permissions, :project_id => @project.id} if params[:role].blank? and not request.post?
   end
 
   def new
+    super
+    @roles = Role.find :all,:conditions=>{:project_id=>@project.id}, :order => 'builtin, position'
+ 
+    return
     # Prefills the form with 'Non member' role permissions
     @role = Role.new(params[:role] || {:permissions => Role.non_member.permissions})
     @role.project=@project
@@ -63,4 +67,5 @@ class ProjectRoleSettingsController < ApplicationController
     flash[:error] =  l(:error_can_not_remove_role)
     redirect_to :controller=>'projects', :action => 'settings',:id=>params[:id],:tab=>'project_role'
   end 
+  #  @role.project=@project
 end
