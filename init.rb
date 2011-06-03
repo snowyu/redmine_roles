@@ -8,8 +8,7 @@ Redmine::Plugin.register :teamkit_project_roles do
   author 'Teamkit Dev: Riceball LEE, ZhuangBiaoWei'
   description 'This is a project roles plugin for Redmine'
   version '0.0.1'
-  url 'http://www.teamhost.org/projects/tk-prj-roles'
-  author_url 'http://www.teamhost.org/about'
+  url 'https://github.com/snowyu/redmine_roles'
 
   #the permissions will be put in the Project permission.
   #permission :project_role_setting, {:project_role_settings => [:show, :update, :add_filter, :edit_filter, :sort]}, :require => :member
