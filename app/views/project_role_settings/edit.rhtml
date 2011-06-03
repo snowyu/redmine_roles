@@ -1,6 +1,6 @@
-<h2><%= l(:label_role_plural) %> &#187; <%=h @role.name %></h2> 
+<h2><%= link_to l(:label_role_plural), :controller => 'project_role_settings', :action => 'index', :project_id => @role.project_id %> &#187; <%=h @role.name %></h2>
 
-<% labelled_tabular_form_for :role, @role, :url => { :action => 'edit' }, :html => {:id => 'role_form'} do |f| %>
-<%= render :partial => 'form', :locals => { :f => f } %>
-<%= submit_tag l(:button_save) %>
+<% labelled_tabular_form_for :role, @role, :url => { :controller => 'project_role_settings', :action => 'edit', :project_id => @role.project_id, :id => @role.id }, :html => {:id => 'role_form'} do |f| %>
+  <%= render :partial => 'roles/form', :locals => { :f => f } %>
+  <%= submit_tag l(:button_save) %>
 <% end %>
