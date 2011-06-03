@@ -28,4 +28,8 @@ Dispatcher.to_prepare :teamkit_project_roles do
   Role.send(:include, ProjectRole::Patches::RolePatch)
   require_dependency 'project'
   Project.send(:include, ProjectRole::Patches::ProjectPatch)
+  require_dependency 'projects_helper'
+  unless ProjectsHelper.included_modules.include? ProjectRole::Patches::ProjectsHelperPatch
+    ProjectsHelper.send(:include, ProjectRole::Patches::ProjectsHelperPatch)
+  end
 end

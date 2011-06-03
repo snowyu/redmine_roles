@@ -3,10 +3,14 @@ module ProjectRole
     module RolesControllerPatch
       def self.included(base)
         base.class_eval do
-          before_filter :apply_scope, :only => [:index, :report]
+          unloadable
+          around_filter :apply_scope
 
           def apply_scope
-            Role.send(:default_scope, :conditions => {:project_id => nil})
+            @project = find_project_by_project_id if params[:project_id]
+            Role.send(:with_scope, :find => {:conditions => {:project_id => @project.nil? ? nil : @project.id}}) do
+              yield
+            end
           end
         end
       end

@@ -3,6 +3,8 @@ module ProjectRole
     module ProjectPatch
       def self.included base
         base.class_eval do
+          unloadable
+          has_many :roles
           after_create   :clone_roles
 
           private

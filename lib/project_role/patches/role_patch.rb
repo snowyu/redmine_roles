@@ -2,7 +2,10 @@ module ProjectRole
   module Patches
     module RolePatch
       def self.included(base)
+        base.extend ClassMethods
+
         base.class_eval do
+          unloadable
           belongs_to :project
 
           def before_validation
@@ -13,8 +16,6 @@ module ProjectRole
             self.name = self.name.gsub(/#{self.project_id.to_i}$/, '')
           end
         end
-
-        base.extend ClassMethods
       end
 
       module ClassMethods
