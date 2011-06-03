@@ -1,7 +1,4 @@
 require 'redmine'
-require File.dirname(__FILE__) + '/lib/project_roles_member_patch.rb'
-require File.dirname(__FILE__) + '/lib/project_roles_workflow_helper_patch.rb'
-require File.dirname(__FILE__) + '/lib/project_role_helper_patch.rb'
 
 Redmine::Plugin.register :teamkit_project_roles do
   name 'Redmine Teamkit Project Roles plugin'
@@ -20,4 +17,18 @@ Redmine::Plugin.register :teamkit_project_roles do
     permission :project_role_setting, {:project_role_settings => [:show, :update, :add_filter, :edit_filter, :sort]}, :require => :member
   end
 =end
+end
+
+require 'dispatcher'
+Dispatcher.to_prepare :teamkit_project_roles do
+  require_dependency 'roles_controller'
+  RolesController.send(:include, ProjectRole::Patches::RolesControllerPatch)
+  require_dependency 'role'
+  Role.send(:include, ProjectRole::Patches::RolePatch)
+  require_dependency 'project'
+  Project.send(:include, ProjectRole::Patches::ProjectPatch)
+  require_dependency 'projects_helper'
+  unless ProjectsHelper.included_modules.include? ProjectRole::Patches::ProjectsHelperPatch
+    ProjectsHelper.send(:include, ProjectRole::Patches::ProjectsHelperPatch)
+  end
 end

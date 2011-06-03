@@ -2,8 +2,8 @@
 
 <div class="box">
 <% unless @role.builtin? %>
-<input type="hidden" name="role_id" value="<%= @role.id %>" />
-<input type="hidden" name="id" value="<%= @project %>" />
+<input type="hidden" name="id" value="<%= @role.id %>" />
+<input type="hidden" name="project_id" value="<%= @project.id %>" />
 <p><%= f.text_field :name, :required => true %></p>
 <p><%= f.check_box :assignable %></p>
 <% end %>
