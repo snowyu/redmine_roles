@@ -32,6 +32,12 @@ I've modified redmine views in the plugin, so I have to update too if redmine up
   settings/                        Administration->Settings
   users/                           Users
 
+== Contributors
+
+* Riceball LEE(https://github.com/snowyu)
+* BiaoWei Zhuang(https://github.com/zhuangbiaowei)
+* Quake Wang(https://github.com/quake)
+
 == todo 
 
 * manage the trackers 

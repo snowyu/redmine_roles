@@ -25,6 +25,14 @@ module ProjectRole
           find(:all, :conditions => {:builtin => 0, :project_id => aProjectId}, :order => 'position')
         end
 
+        def name()
+          if project
+            super
+          else
+            super + '(' + l('label_global') + ')'
+          end
+        end
+
         def clone_role_to(aProject)
           roles = find(:all, :conditions => {:project_id => nil, :builtin => 0}, :order => 'position')
           roles.each do |role|
