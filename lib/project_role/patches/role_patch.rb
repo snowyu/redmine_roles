@@ -8,8 +8,9 @@ module ProjectRole
           unloadable
           belongs_to :project
 
+          #TODO find a better way to resolve unique name validation issue
           def before_validation
-            self.name = self.name + self.project_id.to_i.to_s
+            self.name = (self.name + self.project_id.to_i.to_s)
           end
 
           def after_validation
@@ -26,18 +27,12 @@ module ProjectRole
         end
 
         def clone_role_to(aProject)
-          roles = find(:all, :conditions => {:project_id => nil, :builtin => 0}, :order => 'position')
-          roles.each do |role|
-            r = find(:first, :conditions => {:name => role.name, :project_id => aProject.id})
-            if not r
-              r = role.clone
-              r.project_id = aProject.id
-              #r.name += '(' + aProject.identifier + ')'
-              #r.builtin = 0 if r.builtin != 0
-              r.save!
-            end
+          find(:all, :conditions => {:project_id => nil}, :order => 'position').each do |role|
+            r = role.clone
+            r.project_id = aProject.id
+            r.save(false) #skip name validation for clone
             Workflow.copy(nil, role, nil, r)
-          end #each roles
+          end
         end
       end
     end
