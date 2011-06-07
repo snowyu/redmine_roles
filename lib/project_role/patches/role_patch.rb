@@ -8,29 +8,37 @@ module ProjectRole
           unloadable
           belongs_to :project
 
-          #TODO find a better way to resolve unique name validation issue
-          def before_validation
-            self.name = (self.name + self.project_id.to_i.to_s)
+          def validate
+            super
+            remove_name_taken_error!(errors)
           end
 
-          def after_validation
-            self.name = self.name.gsub(/#{self.project_id.to_i}$/, '')
+          def remove_name_taken_error!(errors)
+            errors.each_error do |attribute, error|
+              if error.attribute == :name && error.type == :taken && name_unique_for_account?
+                errors_hash = errors.instance_variable_get(:@errors)
+                if Array == errors_hash[attribute] && errors_hash[attribute].size > 1
+                  errors_hash[attribute].delete_at(errors_hash[attribute].index(error))
+                else
+                  errors_hash.delete(attribute)
+                end
+              end
+            end
+          end
+
+          def name_unique_for_account?
+            match = project.roles.find_by_name(name)
+            match.nil? or match == self
           end
         end
       end
 
       module ClassMethods
-        # Define class methods here.
-        # Find all the roles that can be given to a project member
-        def get_by_project(aProjectId)
-          find(:all, :conditions => {:builtin => 0, :project_id => aProjectId}, :order => 'position')
-        end
-
         def clone_role_to(aProject)
           find(:all, :conditions => {:project_id => nil}, :order => 'position').each do |role|
             r = role.clone
             r.project_id = aProject.id
-            r.save(false) #skip name validation for clone
+            r.save!
             Workflow.copy(nil, role, nil, r)
           end
         end

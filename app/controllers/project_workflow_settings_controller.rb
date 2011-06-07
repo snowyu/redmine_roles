@@ -9,7 +9,7 @@ class ProjectWorkflowSettingsController < WorkflowsController
   private
 
   def find_roles
-    @roles = Role.get_by_project(@project.id) #Role.find(:all, :order => 'builtin, position')
+    @roles = @project.roles
   end
   
   def find_trackers
