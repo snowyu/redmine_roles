@@ -13,7 +13,7 @@
   <tbody>
     <% for role in @project.roles %>
       <tr class="<%= cycle("odd", "even") %>">
-        <td><%= content_tag(role.builtin? ? 'em' : 'span', link_to(role.name,:controller=>'project_role_settings', :action => 'edit', :id=> role.id, :project_id => @project.id)) %></td>
+        <td><%= content_tag(role.builtin? ? 'em' : 'span', link_to(role.name,:controller=>'project_role_settings', :action => 'edit', :id=> role.id, :project_id => @project.identifier)) %></td>
         <td align="center" style="width:15%;">
           <% unless role.builtin? %>
             <%= reorder_links('role', {:controller=>'project_role_settings', :action => 'edit', :project_id => role.project_id, :id => role.id}) %>

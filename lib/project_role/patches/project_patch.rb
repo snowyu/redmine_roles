@@ -4,7 +4,7 @@ module ProjectRole
       def self.included base
         base.class_eval do
           unloadable
-          has_many :roles
+          has_many :roles, :order => :position
           after_create   :clone_roles
 
           private

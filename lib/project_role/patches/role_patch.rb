@@ -7,6 +7,7 @@ module ProjectRole
         base.class_eval do
           unloadable
           belongs_to :project
+          acts_as_list :scope => :project_id
 
           def validate
             super
@@ -15,7 +16,7 @@ module ProjectRole
 
           def remove_name_taken_error!(errors)
             errors.each_error do |attribute, error|
-              if error.attribute == :name && error.type == :taken && name_unique_for_account?
+              if error.attribute == :name && error.type == :taken && name_unique_for_project?
                 errors_hash = errors.instance_variable_get(:@errors)
                 if Array == errors_hash[attribute] && errors_hash[attribute].size > 1
                   errors_hash[attribute].delete_at(errors_hash[attribute].index(error))
@@ -26,8 +27,8 @@ module ProjectRole
             end
           end
 
-          def name_unique_for_account?
-            match = project.roles.find_by_name(name)
+          def name_unique_for_project?
+            match = Role.find_by_name_and_project_id(name, project_id)
             match.nil? or match == self
           end
         end
