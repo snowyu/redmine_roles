@@ -16,9 +16,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class ProjectRoleSettingsController < RolesController
+  layout 'base'
   unloadable
 
   def index
-    redirect_to "/projects/#{@project.id}/settings/project_role"
+    redirect_to "/projects/#{@project.identifier}/settings/project_role"
   end
 end

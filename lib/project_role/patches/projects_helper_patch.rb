@@ -15,6 +15,9 @@ module ProjectRole
           tabs = project_settings_tabs_without_project_role
           action = {:name => 'project_role', :controller => 'project_role_settings', :action => :edit, :partial => 'project_role_settings/edit', :label => :project_role}
           tabs << action if User.current.allowed_to?(action, @project)
+          action = {:name => 'project_workflow', :controller => 'project_workflow_settings', :action => :edit, :partial => 'project_workflow_settings/edit', :label => :project_workflow}
+          tabs << action if User.current.allowed_to?(action, @project)
+
           tabs
         end
       end

@@ -1,4 +1,4 @@
-<h2><%= link_to l(:label_role_plural), :controller => 'project_role_settings', :action => 'index', :project_id => @project.id %> &#187; <%=l(:label_role_new)%></h2>
+<h2><%= link_to l(:label_role_plural), :controller => 'project_role_settings', :action => 'index', :project_id => @project.identifier %> &#187; <%=l(:label_role_new)%></h2>
 
 <% labelled_tabular_form_for :role, @role, :url => { :controller => 'project_role_settings', :action => 'new', :project_id => @project.id }, :html => {:id => 'role_form'} do |f| %>
   <%= f.hidden_field :project_id, :value => @project.id %>

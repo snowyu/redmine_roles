@@ -1,7 +1,7 @@
 <div id="teamkit_project_workflow_settings">
 <%
     @project=Project.find_by_identifier(params[:id])
-    @roles = Role.get_by_project(@project.id)
+    @roles = @project.roles
     @trackers = Tracker.find(:all, :order => 'position')
 
     @role = Role.find_by_id(params[:role_id])
