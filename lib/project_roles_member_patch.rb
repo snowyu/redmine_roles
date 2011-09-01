@@ -1,9 +1,10 @@
 # Patch the redmine model: Role
 module RoleEx
-  ActiveRecord::Base.belongs_to :project
 
   def self.included(base) # :nodoc:
     base.class_eval do
+      unloadable
+      belongs_to :project
       before_validation   :on_before_validation
       
       private
