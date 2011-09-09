@@ -43,7 +43,17 @@ module ProjectRole
             Workflow.copy(nil, role, nil, r)
           end
         end
+
+        def find_role_by_project(project_id)
+          roles_to_return = []
+          find(:all, :order => 'position').each do |role|
+            roles_to_return << role if role.project_id == project_id || role.builtin?
+          end
+          roles_to_return
+        end
       end
     end
   end
 end
+
+

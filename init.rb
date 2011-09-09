@@ -21,6 +21,8 @@ end
 
 require 'dispatcher'
 Dispatcher.to_prepare :teamkit_project_roles do
+  require_dependency 'workflow'
+  Workflow.send(:include, ProjectRole::Patches::WorkflowPatch)
   require_dependency 'roles_controller'
   RolesController.send(:include, ProjectRole::Patches::RolesControllerPatch)
   require_dependency 'role'

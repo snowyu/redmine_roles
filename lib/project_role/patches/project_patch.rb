@@ -7,6 +7,8 @@ module ProjectRole
           has_many :roles, :order => :position
           after_create   :clone_roles
 
+          public
+
           private
           def clone_roles()
             Role.clone_role_to(self)
@@ -16,4 +18,3 @@ module ProjectRole
     end
   end
 end
-
