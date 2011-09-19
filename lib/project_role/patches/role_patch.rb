@@ -1,3 +1,6 @@
+require_dependency 'project'
+require_dependency 'Role'
+
 module ProjectRole
   module Patches
     module RolePatch
@@ -7,7 +10,7 @@ module ProjectRole
         base.class_eval do
           unloadable
           belongs_to :project
-          acts_as_list :scope => :project_id
+          acts_as_list :scope => :project if  (Role.table_exists? and Role.column_names.include?('project_id'))
 
           def validate
             super
