@@ -1,5 +1,5 @@
 require_dependency 'project'
-require_dependency 'Role'
+#require_dependency 'Role'
 
 module ProjectRole
   module Patches

@@ -33,4 +33,8 @@ Dispatcher.to_prepare :teamkit_project_roles do
   unless ProjectsHelper.included_modules.include? ProjectRole::Patches::ProjectsHelperPatch
     ProjectsHelper.send(:include, ProjectRole::Patches::ProjectsHelperPatch)
   end
+  require_dependency 'my_helper'
+  MyHelper.send(:include, ProjectRole::Patches::MyHelperPatch)
+  require_dependency 'my_controller'
+  MyController.send(:include, ProjectRole::Patches::MyControllerPatch)
 end

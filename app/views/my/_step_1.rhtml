@@ -1,0 +1,35 @@
+<h4> Watch some projects or develops ?</h4>
+
+<div class="splitcontentright" >
+  <div class="box">
+  <form action="user_guide" method="get" tab="step_2">
+    <% @projects.each do |project| %>
+      <li>
+      <%= link_to_project project %> (<%= format_time(project.created_on) %>)
+      <%= textilizable project.short_description, :project => project %>
+      </li>
+    <% end %>
+    <input type="submit" value="Follow" />
+  </form>
+</div>
+   <%= call_hook(:view_welcome_index_left, :projects => @projects) %>
+</div>
+
+<div class="splitcontentleft">
+  <div class="box">
+  <form action="user_guide" method="get" tab="step_2">
+    <% @users.each do |user| %>
+      <li>
+      <%= link_to_user user %> (<%= format_time(user.updated_on) %> ) <br />
+      <br />
+      </li>
+    <% end %>
+    <input type="submit" value="Follow" />
+  </form>
+</div>
+</div>
+<hr class="hide">
+
+<div class="box">
+<%= link_to l(:label_next), {:controller => 'my', :action => 'user_guide', :tab => 'step_2'} %> | 
+</div>

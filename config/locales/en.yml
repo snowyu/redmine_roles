@@ -9,3 +9,8 @@ en:
   permission_project_role_setting: Manage roles
   permission_project_workflow_setting: Manage workflows
   label_global: global
+  user_guide: User guide
+  label_step_1: First step
+  label_step_2: Second Step
+  label_step_3: Finish
+  label_later: Create later
