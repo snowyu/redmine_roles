@@ -11,21 +11,27 @@ module ProjectRole
           def user_guide
             @projects = Project.latest
             @users = User.all
+            @project = Project.new(params[:project])
           end
 
-          def step_1
+          def project_create
+            @issue_custom_fields = IssueCustomField.find(:all, :order => "#{CustomField.table_name}.position")
+            @trackers = Tracker.all
+            @project = Project.new
+            @project.safe_attributes = params[:project]
+            if @project.save
+              flash[:notice] = l(:notice_successful_create)
+              redirect_to :action => :user_guide, :tab => :step_2
+            else
+              @projects = Project.latest
+              @users = User.all
+              render :action => :user_guide
+            end
           end
         end
       end
 
       module ClassMethods
-        def step_2
-          p url_for(:action => :user_guide, :tab => :step_3)
-          redirect_to :action => :user_guide, :tab => :step_3
-        end
-
-        def step_3
-        end
       end
     end
   end

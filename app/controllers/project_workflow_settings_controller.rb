@@ -13,7 +13,7 @@ class ProjectWorkflowSettingsController < WorkflowsController
   private
 
   def find_roles
-    @roles = Role.find_role_by_project(@project.id)
+    @roles = @project.roles
   end
 
   def find_trackers
