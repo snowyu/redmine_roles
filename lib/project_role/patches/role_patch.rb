@@ -12,6 +12,14 @@ module ProjectRole
           belongs_to :project
           acts_as_list :scope => :project if  (Role.table_exists? and Role.column_names.include?('project_id'))
 
+          def name
+            if project
+              super# + '(' + project.name + ')'
+            else
+              super + '(' + l('label_global') + ')'
+            end
+          end
+
           def validate
             super
             remove_name_taken_error!(errors)
