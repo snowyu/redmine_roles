@@ -7,8 +7,9 @@ module ProjectRole
           around_filter :apply_scope
 
           def apply_scope
-            @project = find_project_by_project_id #if params[:project_id] and params[:action] != 'new' #just workaround
+            @project = find_project_by_project_id if params[:project_id] #and params[:action] != 'new' #just workaround
             Role.send(:with_scope, :find => {:conditions => {:project_id => (@project.nil? or params[:action] == 'new') ? nil : @project.id}}) do
+#            Role.send(:with_scope, :find => {:conditions => {:project_id => (@project.nil?)  ? nil : @project.id}}) do
               yield
             end
           end
