@@ -56,11 +56,7 @@ module ProjectRole
         end
 
         def find_role_by_project(project_id)
-          roles_to_return = []
-          find(:all, :order => 'position').each do |role|
-            roles_to_return << role if role.project_id == project_id || role.builtin?
-          end
-          roles_to_return
+          find(:all, :conditions => {:project_id => project_id}, :order => 'position')
         end
       end
     end
