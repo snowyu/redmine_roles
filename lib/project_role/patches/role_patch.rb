@@ -44,10 +44,9 @@ module ProjectRole
           end
           
           def self.non_member
-            non_member_role=with_exclusive_scope(:find => {:conditions => {:builtin => Role::BUILTIN_NON_MEMBER}}) do
+            non_member_role = with_exclusive_scope(:find => {:conditions => {:builtin => Role::BUILTIN_NON_MEMBER}}) do
               find(:first)
             end
-            p non_member_role
             if non_member_role.nil?
               non_member_role = create(:name => 'Non member', :position => 0) do |role|
                 role.builtin = BUILTIN_NON_MEMBER
@@ -58,7 +57,7 @@ module ProjectRole
           end
           
           def self.anonymous
-            anonymous_role = with_exclusive_scope (:find => {:conditions => {:builtin => Role::BUILTIN_ANONYMOUS}}) do
+            anonymous_role = with_exclusive_scope(:find => {:conditions => {:builtin => Role::BUILTIN_ANONYMOUS}}) do
               find(:first)
             end
             if anonymous_role.nil?
