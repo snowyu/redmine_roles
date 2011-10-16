@@ -58,7 +58,7 @@ module ProjectRole
           end
           
           def self.anonymous
-            anonymous_role = with_exclusive_scope (:find => {:conditions => {:builtin => Role::BUILTIN_ANONYMOUS}}) do
+            anonymous_role = with_exclusive_scope(:find => {:conditions => {:builtin => Role::BUILTIN_ANONYMOUS}}) do
               find(:first)
             end
             if anonymous_role.nil?
