@@ -11,6 +11,8 @@ module ProjectRole
           unloadable
           belongs_to :project
           acts_as_list :scope => :project if  (Role.table_exists? and Role.column_names.include?('project_id'))
+          named_scope :givable, { :conditions => "builtin <= 0", :order => 'position' }
+          
    
           def name
             if project
@@ -37,10 +39,23 @@ module ProjectRole
               end
             end
           end
+          
+          # Return true if the role is a project member role
+          def member?
+            self.builtin <= 0
+          end
 
           def name_unique_for_project?
             match = Role.find_by_name_and_project_id(name, project_id)
             match.nil? or match == self
+          end
+          
+          # Find all the roles that can be given to a project member
+          def self.find_all_givable
+             roles = find(:all, :conditions => {:builtin => 0, :project_id => nil}, :order => 'position')
+             roles << owner
+             p roles
+             roles
           end
           
           def self.non_member
@@ -73,6 +88,18 @@ module ProjectRole
       end
 
       module ClassMethods
+        BUILTIN_OWNER  = -100
+        def owner()
+          owner_role = find(:first, :conditions => {:builtin => BUILTIN_OWNER})
+          if owner_role.nil?
+            owner_role = create(:name => 'Owner', :position => 0) do |role|
+              role.builtin = BUILTIN_OWNER
+            end
+            raise 'Unable to create the owner role.' if owner_role.new_record?
+          end
+          owner_role
+        end
+        
         def clone_role_to(aProject)
           find(:all, :conditions => {:builtin => 0, :project_id => nil}, :order => 'position').each do |role|
             r = role.clone
