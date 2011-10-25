@@ -90,7 +90,9 @@ module ProjectRole
       module ClassMethods
         BUILTIN_OWNER  = -100
         def owner()
-          owner_role = find(:first, :conditions => {:builtin => BUILTIN_OWNER})
+          owner_role =  with_exclusive_scope(:find => {:conditions => {:builtin => BUILTIN_OWNER}}) do
+            find(:first)
+          end
           if owner_role.nil?
             owner_role = create(:name => 'Owner', :position => 0) do |role|
               role.builtin = BUILTIN_OWNER
