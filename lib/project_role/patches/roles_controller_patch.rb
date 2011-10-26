@@ -5,6 +5,7 @@ module ProjectRole
         base.class_eval do
           unloadable
           around_filter :apply_scope
+          skip_filter :require_admin
 
           def apply_scope
             @project = find_project_by_project_id if params[:project_id] #and params[:action] != 'new' #just workaround

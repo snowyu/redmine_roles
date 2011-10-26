@@ -39,6 +39,10 @@ Dispatcher.to_prepare :teamkit_project_roles do
   MyHelper.send(:include, ProjectRole::Patches::MyHelperPatch)
   require_dependency 'my_controller'
   MyController.send(:include, ProjectRole::Patches::MyControllerPatch)
+
+  require_dependency 'workflows_controller'
+  WorkflowsController.send(:include, ProjectRole::Patches::WorkflowsControllerPatch)
+  
 end
 
 ActionView::Base.send :include,ProjectRole::Patches::MyHelperPatch
