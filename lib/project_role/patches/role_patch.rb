@@ -64,7 +64,7 @@ module ProjectRole
             end
             if non_member_role.nil?
               non_member_role = create(:name => 'Non member', :position => 0) do |role|
-                role.builtin = BUILTIN_NON_MEMBER
+                role.builtin = Role::BUILTIN_NON_MEMBER
               end
               raise 'Unable to create the non-member role.' if non_member_role.new_record?
             end
@@ -77,7 +77,7 @@ module ProjectRole
             end
             if anonymous_role.nil?
               anonymous_role = create(:name => 'Anonymous', :position => 0) do |role|
-                role.builtin = BUILTIN_ANONYMOUS
+                role.builtin = Role::BUILTIN_ANONYMOUS
               end
               raise 'Unable to create the anonymous role.' if anonymous_role.new_record?
             end
