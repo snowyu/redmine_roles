@@ -87,6 +87,8 @@ module ProjectRole
       end
 
       module ClassMethods
+ 	# the  < 0 builtin role can not be delete via non-admin user.
+	# the builtin role is global role only. It can not be project role.
         BUILTIN_OWNER  = -100
         def owner()
           owner_role =  with_exclusive_scope(:find => {:conditions => {:builtin => BUILTIN_OWNER}}) do
