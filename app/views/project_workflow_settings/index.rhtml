@@ -11,7 +11,7 @@
     <tr>
     <th></th>
     <% @workflow_counts.first.last.each do |role, count| %>
-    <th>
+    <th style="text-align: center; ">
         <%= content_tag(role.builtin? ? 'em' : 'span', h(role.name)) %>
     </th>
     <% end %>
@@ -23,7 +23,7 @@
   <td><%= h tracker %></td>
   <% roles.each do |role, count| -%>
     <td align="center">
-      <%= link_to((count > 0 ? count : image_tag('false.png')), {:action => 'edit', :id => @project }, :title => l(:button_edit)) %>
+      <%= link_to((count > 0 ? count : image_tag('false.png')), {:action => 'edit', :id => @project, :role_id => role, :tracker_id => tracker }, :title => l(:button_edit)) %>
     </td>
   <% end -%>
 </tr>
