@@ -54,7 +54,6 @@ module ProjectRole
           def self.find_all_givable
              roles = find(:all, :conditions => {:builtin => 0, :project_id => nil}, :order => 'position')
              roles << owner
-             p roles
              roles
           end
           

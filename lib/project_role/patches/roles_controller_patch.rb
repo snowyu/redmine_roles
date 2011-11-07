@@ -6,6 +6,7 @@ module ProjectRole
           unloadable
           around_filter :apply_scope
           skip_filter :require_admin
+          before_filter :authorize_global, :only =>[:new, :edit, :destroy]
 
           def apply_scope
             @project = find_project_by_project_id if params[:project_id] #and params[:action] != 'new' #just workaround
