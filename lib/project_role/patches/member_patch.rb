@@ -9,8 +9,6 @@ module ProjectRole
           def update_attributes(columns)
             is_owner = !member_roles.detect{|mr| mr.role == Role.owner}.nil?
             columns[:role_ids] << Role.owner.id if !User.current.admin? and !columns[:role_ids].nil? and is_owner
-            is_follower = !member_roles.detect{|mr| mr.role == Role.follower}.nil?
-            columns[:role_ids] << Role.follower.id if !columns[:role_ids].nil? and is_follower
             _update_attributes(columns)
           end
 
