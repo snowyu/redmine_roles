@@ -20,6 +20,6 @@ class ProjectRoleSettingsController < RolesController
   unloadable
 
   def index
-    redirect_to "/projects/#{@project.identifier}/settings/project_role"
+    redirect_to "/#{@project.owner.login}/#{@project.identifier}/settings/project_role"
   end
 end

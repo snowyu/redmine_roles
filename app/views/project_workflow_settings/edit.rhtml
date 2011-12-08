@@ -22,7 +22,7 @@
 
 
 <% if @tracker && @role && @statuses.any? %>
-<% form_tag({:controller => 'project_workflow_settings', :action => "edit", :id => @project}, :method => 'post', :id => 'workflow_form' ) do %>
+<% form_tag({:controller => 'project_workflow_settings', :action => "edit", :project_id => @project}, :method => 'post', :id => 'workflow_form' ) do %>
 <%= hidden_field_tag 'tracker_id', @tracker.id %>
 <%= hidden_field_tag 'role_id', @role.id %>
 <div class="autoscroll">
