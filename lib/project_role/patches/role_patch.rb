@@ -1,5 +1,5 @@
 require_dependency 'project'
-#require_dependency 'Role'
+#require_dependency 'role'
 
 module ProjectRole
   module Patches
@@ -12,7 +12,6 @@ module ProjectRole
           belongs_to :project
           acts_as_list :scope => :project if  (Role.table_exists? and Role.column_names.include?('project_id'))
           named_scope :givable, { :conditions => "builtin <= 0", :order => 'position' }
-          
    
           def name
             if project
@@ -31,7 +30,7 @@ module ProjectRole
             errors.each_error do |attribute, error|
               if error.attribute == :name && error.type == :taken && name_unique_for_project?
                 errors_hash = errors.instance_variable_get(:@errors)
-                if Array == errors_hash[attribute] && errors_hash[attribute].size > 1
+                if errors_hash[attribute].is_a?(Array) && errors_hash[attribute].size > 1
                   errors_hash[attribute].delete_at(errors_hash[attribute].index(error))
                 else
                   errors_hash.delete(attribute)
